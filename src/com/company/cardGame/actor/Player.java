@@ -7,6 +7,8 @@ import com.company.cardGame.blackJack.Hand;
 public class Player implements Actor {
     private final String NAME;
     private int balance = 1000;
+    private int currentTurn = 0;
+    private int maxSelection = 2;
 
     public Player(String name) {
         this.NAME = name;
@@ -33,11 +35,16 @@ public class Player implements Actor {
     }
 
     public String getAvailableOptions() {
+        maxSelection = 2;
         StringBuilder output = new StringBuilder();
         output.append("0. Quit\n1. Hit\n2. Stand");
         //TODO create logic to add Double
         //TODO pt1 Confirm First Turn;
         //TODO pt2 Confirm has enough funds
+        if (currentTurn == 1) {
+            output.append("\n3. Double");
+            maxSelection++;
+        }
 
         //TODO pt3 add logic for Split to detect pair
         return output.toString();
@@ -52,6 +59,7 @@ public class Player implements Actor {
         System.out.println(getAvailableOptions());
 
         //get selected action
-        return (byte) Console.getInt(0, 2, "", "Invalid Selection");
+        currentTurn++;
+        return (byte) Console.getInt(0, maxSelection, "", "Invalid Selection");
     }
 }
