@@ -1,15 +1,22 @@
 package com.company.cardGame.blackJack;
 
 import com.company.cardGame.deck.Card;
-import com.company.cardGame.deck.Deck;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class Hand {
-    private List<Card> cards = new ArrayList<>();
+    private final List<Card> cards = new ArrayList<>();
     private int bet = 0;
-    //private Player player;
+    private final Actor HOLDER;
+
+    public Hand(Actor HOLDER) {
+        this.HOLDER = HOLDER;
+    }
+
+    public byte getAction() {
+        return HOLDER.getAction(this);
+    }
 
     public void addCard(Card card) {
         cards.add(card);

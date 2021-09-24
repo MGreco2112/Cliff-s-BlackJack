@@ -15,16 +15,13 @@ public class Dealer implements Actor{
     }
 
     @Override
-    public int getBet(int wallet) {
+    public int getBet() {
         return 0;
     }
 
     @Override
     public byte getAction(Hand hand) {
-        int handValue = hand.getValue();
-        if (handValue < 17) {
-            return HIT;
-        }
-        return 0;
+
+        return hand.getValue() < 17 ? HIT : STAND;
     }
 }
