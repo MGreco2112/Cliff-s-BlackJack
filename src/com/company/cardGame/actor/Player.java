@@ -7,8 +7,9 @@ import com.company.cardGame.blackJack.Hand;
 public class Player implements Actor {
     private final String NAME;
     private int balance = 1000;
-    private int currentTurn = 0;
+    private int currentTurn = 1;
     private int maxSelection = 2;
+    private int currentBet = 0;
 
     public Player(String name) {
         this.NAME = name;
@@ -31,7 +32,11 @@ public class Player implements Actor {
 
     @Override
     public int getBet() {
-        return Console.getInt(1, balance, "Enter a bet between 1 and " + balance, "Invalid bet");
+        int bet = Console.getInt(1, balance, "Enter a bet between 1 and " + balance, "Invalid bet");
+
+        currentBet = bet;
+
+        return bet;
     }
 
     public String getAvailableOptions() {
@@ -41,14 +46,17 @@ public class Player implements Actor {
         //TODO create logic to add Double
         //TODO pt1 Confirm First Turn;
         //TODO pt2 Confirm has enough funds
-        if (currentTurn == 1) {
+        if (currentTurn == 1 && balance >= currentBet) {
             output.append("\n3. Double");
             maxSelection++;
         }
-
+        //Doubles current bet and hits another card, stands after that
         //TODO pt3 add logic for Split to detect pair
+
         return output.toString();
     }
+
+
 
     @Override
     public byte getAction(Hand hand) {

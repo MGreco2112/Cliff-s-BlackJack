@@ -18,6 +18,28 @@ public class Hand {
         return HOLDER.getAction(this);
     }
 
+    public void doubleBet() {
+        bet = bet*2;
+    }
+
+    public int checkPair() {
+        for (int i = 0; i < cards.size(); i++) {
+            int pairs = 0;
+            for (int j = i + 1; j < cards.size(); j++) {
+                if (cards.get(i).getValue() == cards.get(j).getValue()) {
+                    pairs++;
+                }
+            }
+            if (pairs > 0) {
+                return 1;
+            }
+        }
+
+
+        return 0;
+    }
+
+
     public void addCard(Card card) {
         cards.add(card);
     }
