@@ -20,9 +20,10 @@ public class Dealer implements Actor{
     }
 
     @Override
-    public int checkPair(Hand hand) {
-        return 0;
+    public Hand selectedHand(Hand hand) {
+        return null;
     }
+
 
     @Override
     public byte getAction(Hand hand) {

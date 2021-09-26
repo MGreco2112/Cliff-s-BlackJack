@@ -12,10 +12,15 @@ public class Hand {
 
     public Hand(Actor HOLDER) {
         this.HOLDER = HOLDER;
+
     }
 
     public byte getAction() {
         return HOLDER.getAction(this);
+    }
+
+    public Hand selectedHand() {
+        return HOLDER.selectedHand(this);
     }
 
     public List<Card> getCards() {
@@ -27,7 +32,21 @@ public class Hand {
     }
 
     public int checkPair() {
-        return HOLDER.checkPair(this);
+
+        for (int i = 0; i < cards.size(); i++) {
+            int pairs = 0;
+            for (int j = i + 1; j < cards.size(); j++) {
+                if (cards.get(i).getValue() == cards.get(j).getValue()) {
+                    pairs++;
+                }
+            }
+            if (pairs > 0) {
+                return 1;
+            }
+        }
+
+
+        return 0;
     }
 
 

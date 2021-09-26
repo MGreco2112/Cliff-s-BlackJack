@@ -10,7 +10,7 @@ public class Player implements Actor {
     private int currentTurn = 1;
     private int maxSelection = 2;
     private int currentBet = 0;
-    private Hand HAND;
+    private Hand hand;
 
     public Player(String name) {
         this.NAME = name;
@@ -40,6 +40,11 @@ public class Player implements Actor {
         return bet;
     }
 
+    public Hand selectedHand(Hand hand) {
+        this.hand = hand;
+        return hand;
+    }
+
     public String getAvailableOptions() {
         maxSelection = 2;
         StringBuilder output = new StringBuilder();
@@ -50,30 +55,15 @@ public class Player implements Actor {
         if (currentTurn == 1 && balance >= currentBet) {
             output.append("\n3. Double");
             maxSelection++;
+            if (hand.checkPair() == 1) {
+                output.append("\n4. Split");
+                maxSelection++;
+            }
         }
         //Doubles current bet and hits another card, stands after that
         //TODO pt3 add logic for Split to detect pair
 
         return output.toString();
-    }
-
-    public int checkPair(Hand hand) {
-        HAND = hand;
-
-        for (int i = 0; i < hand.getCards().size(); i++) {
-            int pairs = 0;
-            for (int j = i + 1; j < hand.getCards().size(); j++) {
-                if (hand.getCards().get(i).getValue() == hand.getCards().get(j).getValue()) {
-                    pairs++;
-                }
-            }
-            if (pairs > 0) {
-                return 1;
-            }
-        }
-
-
-        return 0;
     }
 
     @Override
