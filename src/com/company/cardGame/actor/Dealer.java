@@ -20,6 +20,11 @@ public class Dealer implements Actor{
     }
 
     @Override
+    public int checkPair(Hand hand) {
+        return 0;
+    }
+
+    @Override
     public byte getAction(Hand hand) {
 
         return hand.getValue() < 17 ? HIT : STAND;

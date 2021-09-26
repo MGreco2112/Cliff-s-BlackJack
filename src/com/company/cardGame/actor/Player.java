@@ -10,6 +10,7 @@ public class Player implements Actor {
     private int currentTurn = 1;
     private int maxSelection = 2;
     private int currentBet = 0;
+    private Hand HAND;
 
     public Player(String name) {
         this.NAME = name;
@@ -56,7 +57,24 @@ public class Player implements Actor {
         return output.toString();
     }
 
+    public int checkPair(Hand hand) {
+        HAND = hand;
 
+        for (int i = 0; i < hand.getCards().size(); i++) {
+            int pairs = 0;
+            for (int j = i + 1; j < hand.getCards().size(); j++) {
+                if (hand.getCards().get(i).getValue() == hand.getCards().get(j).getValue()) {
+                    pairs++;
+                }
+            }
+            if (pairs > 0) {
+                return 1;
+            }
+        }
+
+
+        return 0;
+    }
 
     @Override
     public byte getAction(Hand hand) {
