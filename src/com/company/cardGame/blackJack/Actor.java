@@ -10,7 +10,6 @@ public interface Actor {
     String getName();
     int getBalance();
     int getBet();
-    Hand selectedHand(Hand hand);
     byte getAction(Hand hand);
     //byte getAcion(Hand hand, List<Cards> cards) -> card counter version
 }

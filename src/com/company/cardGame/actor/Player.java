@@ -10,7 +10,6 @@ public class Player implements Actor {
     private int currentTurn = 1;
     private int maxSelection = 2;
     private int currentBet = 0;
-    private Hand hand;
 
     public Player(String name) {
         this.NAME = name;
@@ -40,22 +39,18 @@ public class Player implements Actor {
         return bet;
     }
 
-    public Hand selectedHand(Hand hand) {
-        this.hand = hand;
-        return hand;
-    }
 
-    public String getAvailableOptions() {
+    public String getAvailableOptions(Hand hand) {
         maxSelection = 2;
         StringBuilder output = new StringBuilder();
         output.append("0. Quit\n1. Hit\n2. Stand");
         //TODO create logic to add Double
         //TODO pt1 Confirm First Turn;
         //TODO pt2 Confirm has enough funds
-        if (currentTurn == 1 && balance >= currentBet) {
+        if (hand.getCards().size() == 2 && balance >= currentBet) {
             output.append("\n3. Double");
             maxSelection++;
-            if (hand.checkPair() == 1) {
+            if (hand.hasPair()) {
                 output.append("\n4. Split");
                 maxSelection++;
             }
@@ -72,7 +67,7 @@ public class Player implements Actor {
         System.out.println(hand.displayHand());
         System.out.println(hand.getValue());
         //display available actions
-        System.out.println(getAvailableOptions());
+        System.out.println(getAvailableOptions(hand));
 
         //get selected action
         currentTurn++;

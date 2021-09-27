@@ -19,10 +19,6 @@ public class Dealer implements Actor{
         return 0;
     }
 
-    @Override
-    public Hand selectedHand(Hand hand) {
-        return null;
-    }
 
 
     @Override
