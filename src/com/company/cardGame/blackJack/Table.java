@@ -1,6 +1,7 @@
 package com.company.cardGame.blackJack;
 
 import com.company.cardGame.deck.Deck;
+import com.company.cardGame.deck.RiggedDeck;
 import com.company.cardGame.deck.StandardDeck;
 import com.company.cardGame.actor.Dealer;
 import com.company.cardGame.actor.Player;
@@ -11,7 +12,8 @@ public class Table {
     private Deck deck;
 
     public void playRound() {
-        deck  = new StandardDeck();
+//        deck  = new StandardDeck();
+        deck = new RiggedDeck();
         deck.shuffle();
         /*
         0. take bets
@@ -62,7 +64,7 @@ public class Table {
         byte action = activeHand.getAction();
         switch (action) {
             case 0 -> {
-                System.out.println("Y'all hurry back now later\nYa hear?");
+                System.out.println("Y'all hurry back later now\nYa hear?");
                 System.exit(0);
             }
             case 1 -> hit(activeHand);
