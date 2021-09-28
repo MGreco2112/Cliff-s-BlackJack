@@ -61,10 +61,13 @@ public class Table {
         System.out.println("Dealer: " + dealer.displayHand());
         byte action = activeHand.getAction();
         switch (action) {
-            case 0 -> System.out.println("Quit");
-            case 1 -> System.out.println("Hit");
-            case 2 -> System.out.println("Stand");
-            case 3 -> System.out.println("Double Down");
+            case 0 -> {
+                System.out.println("Y'all hurry back now later\nYa hear?");
+                System.exit(0);
+            }
+            case 1 -> hit(activeHand);
+            case 2 -> stand(activeHand);
+            case 3 -> doubleDown(activeHand);
             case 4 -> System.out.println("Split");
             default -> System.out.println("Invalid selection " + action);
         }
@@ -72,14 +75,20 @@ public class Table {
 
     private void hit(Hand activeHand) {
         //todo hit
+        activeHand.addCard(deck.draw());
+        System.out.println("HIT!");
     }
 
     private void stand(Hand activeHand) {
         //todo stand
+        System.out.println("Stand!");
     }
 
     private void doubleDown(Hand activeHand) {
         //todo double
+        activeHand.doubleBet();
+        activeHand.addCard(deck.draw());
+        System.out.println("Doubled Down!");
     }
 
     private void split(Hand activeHand) {
