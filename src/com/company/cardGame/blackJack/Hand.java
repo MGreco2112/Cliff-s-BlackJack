@@ -27,21 +27,25 @@ public class Hand {
         bet = bet*2;
     }
 
+//    public boolean hasPair() {
+//
+//        for (int i = 0; i < cards.size(); i++) {
+//            for (int j = i + 1; j < cards.size(); j++) {
+//                if (cards.get(i).getValue() == cards.get(j).getValue()) {
+//                    return true;
+//                }
+//            }
+//
+//        }
+//
+//
+//        return false;
+//    }
+
+
     public boolean hasPair() {
-
-        for (int i = 0; i < cards.size(); i++) {
-            for (int j = i + 1; j < cards.size(); j++) {
-                if (cards.get(i).getValue() == cards.get(j).getValue()) {
-                    return true;
-                }
-            }
-
-        }
-
-
-        return false;
+        return cards.get(0).getRank() == cards.get(1).getRank();
     }
-
 
     public void addCard(Card card) {
         cards.add(card);
@@ -60,7 +64,7 @@ public class Hand {
         int score = 0;
         boolean haveAce11 = false;
         for (Card card : cards) {
-            int value = card.getValue();
+            int value = card.getRank();
             switch (value) {
                 case 1 -> {
                     value = score + 11 > 21 ? 1 : 11;
