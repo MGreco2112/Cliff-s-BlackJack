@@ -76,6 +76,8 @@ public class Table {
     private void hit(Hand activeHand) {
         //todo hit
         activeHand.addCard(deck.draw());
+        System.out.println(activeHand.displayHand());
+        System.out.println(activeHand.displayHand() + "\n" + player.getValue());
         System.out.println("HIT!");
     }
 
@@ -88,6 +90,7 @@ public class Table {
         //todo double
         activeHand.doubleBet();
         activeHand.addCard(deck.draw());
+        System.out.println(activeHand.displayHand() + "\n" + player.getValue());
         System.out.println("Doubled Down!");
     }
 
