@@ -24,7 +24,7 @@ public class Hand {
     }
 
     public void doubleBet() {
-        bet = bet*2;
+        bet *= bet;
     }
 
 //    public boolean hasPair() {
