@@ -68,7 +68,7 @@ public class Table {
             case 1 -> hit(activeHand);
             case 2 -> stand(activeHand);
             case 3 -> doubleDown(activeHand);
-            case 4 -> System.out.println("Split");
+            case 4 -> split(activeHand);
             default -> System.out.println("Invalid selection " + action);
         }
     }
@@ -96,5 +96,6 @@ public class Table {
 
     private void split(Hand activeHand) {
         //todo split
+        doubleDown(activeHand);
     }
 }
