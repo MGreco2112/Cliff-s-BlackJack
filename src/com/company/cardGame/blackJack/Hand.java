@@ -10,6 +10,9 @@ public class Hand {
     private int bet = 0;
     private final Actor HOLDER;
 
+    public final byte PUSHPAY = 0;
+    public final byte NORMALPAY = 1;
+
     public Hand(Actor HOLDER) {
         this.HOLDER = HOLDER;
 
@@ -24,7 +27,26 @@ public class Hand {
     }
 
     public void doubleBet() {
-        bet *= bet;
+         HOLDER.addBalance(-bet);
+         bet *= 2;
+    }
+
+    public int getBet() {
+        return bet;
+    }
+
+    public int placeBet() {
+        bet = HOLDER.placeBet();
+        return bet;
+    }
+
+    public void payout(byte typeOfWin) {
+        switch (typeOfWin) {
+            case PUSHPAY -> HOLDER.addBalance(bet);
+            case NORMALPAY -> HOLDER.addBalance(bet *= 2);
+
+        }
+
     }
 
 //    public boolean hasPair() {
@@ -42,6 +64,9 @@ public class Hand {
 //        return false;
 //    }
 
+    public int getBalance() {
+        return HOLDER.getBalance();
+    }
 
     public boolean hasPair() {
         return cards.get(0).getRank() == cards.get(1).getRank();

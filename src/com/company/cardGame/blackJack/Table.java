@@ -1,15 +1,20 @@
 package com.company.cardGame.blackJack;
 
 import com.company.cardGame.deck.Deck;
-import com.company.cardGame.deck.RiggedDeck;
 import com.company.cardGame.deck.StandardDeck;
 import com.company.cardGame.actor.Dealer;
 import com.company.cardGame.actor.Player;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Table {
     private Hand player = new Hand(new Player("Player"));
     private Hand dealer = new Hand(new Dealer());
     private Deck deck;
+    private final List<Hand> hands = new ArrayList<>();
+    //todo get the multi player system working
+    private final int BUST_VALUE = 21;
 
     public void playRound() {
         deck  = new StandardDeck();
@@ -23,16 +28,18 @@ public class Table {
         b3. dealers turn
         b4. declare winner
          */
+        player.placeBet();
         deal();
         displayTable();
         while (turn(player)) {
-            if (player.getValue() > 21) {
+            if (player.getValue() > BUST_VALUE) {
                 System.out.println("BUSTED!!!");
                 break;
             }
         }
         turn(dealer);
         determineWinner();
+        System.out.println("Balance: " + player.getBalance());
     }
 
     private void deal() {
@@ -53,16 +60,23 @@ public class Table {
 
     private void determineWinner() {
 
-        System.out.println("Dealer: " + dealer.getValue());
-        System.out.println("Player: " + player.getValue());
-
-        if (player.getValue() > dealer.getValue() && player.getValue() <= 21) {
-            System.out.println("Player wins");
+        if (player.getValue() > BUST_VALUE) {
+            System.out.println("Dealer wins");
             return;
         }
 
-        if (player.getValue() == dealer.getValue() && player.getValue() <= 21 && dealer.getValue() <= 21) {
+        System.out.println("Dealer: " + dealer.getValue());
+        System.out.println("Player: " + player.getValue());
+
+        if (player.getValue() > dealer.getValue() || dealer.getValue() > BUST_VALUE) {
+            System.out.println("Player wins");
+            player.payout(player.NORMALPAY);
+            return;
+        }
+
+        if (player.getValue() == dealer.getValue()) {
             System.out.println("Push");
+            player.payout(player.PUSHPAY);
             return;
         }
 
@@ -74,11 +88,11 @@ public class Table {
         System.out.println("Dealer: " + dealer.displayHand());
         byte action = activeHand.getAction();
         switch (action) {
-            case 0 -> stand(activeHand);
-            case 1 -> hit(activeHand);
-            case 2 -> stand(activeHand);
-            case 3 -> doubleDown(activeHand);
-            case 4 -> split(activeHand);
+            case Actor.QUIT -> stand(activeHand);
+            case Actor.HIT -> hit(activeHand);
+            case Actor.STAND -> stand(activeHand);
+            case Actor.DOUBLE -> doubleDown(activeHand);
+            case Actor.SPLIT -> split(activeHand);
             default -> {
                 System.out.println("Invalid selection " + action);
                 return false;
@@ -87,7 +101,7 @@ public class Table {
 
 
 
-        if (action == 0 || action == 2) {
+        if (action == Actor.QUIT || action == Actor.STAND) {
             return false;
         }
 

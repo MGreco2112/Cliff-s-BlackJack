@@ -7,9 +7,7 @@ import com.company.cardGame.blackJack.Hand;
 public class Player implements Actor {
     private final String NAME;
     private int balance = 1000;
-    private int currentTurn = 1;
     private int maxSelection = 2;
-    private int currentBet = 0;
 
     public Player(String name) {
         this.NAME = name;
@@ -31,10 +29,10 @@ public class Player implements Actor {
     }
 
     @Override
-    public int getBet() {
+    public int placeBet() {
         int bet = Console.getInt(1, balance, "Enter a bet between 1 and " + balance, "Invalid bet");
 
-        currentBet = bet;
+        balance -= bet;
 
         return bet;
     }
@@ -47,7 +45,7 @@ public class Player implements Actor {
         //TODO create logic to add Double
         //TODO pt1 Confirm First Turn;
         //TODO pt2 Confirm has enough funds
-        if (hand.getCards().size() == 2 && balance >= currentBet) {
+        if (hand.getCards().size() == 2 && balance >= hand.getBet()) {
             output.append("\n3. Double");
             maxSelection++;
             if (hand.hasPair()) {
@@ -70,7 +68,11 @@ public class Player implements Actor {
         System.out.println(getAvailableOptions(hand));
 
         //get selected action
-        currentTurn++;
         return (byte) Console.getInt(0, maxSelection, "", "Invalid Selection");
+    }
+
+    @Override
+    public void addBalance(int winnings) {
+        balance += winnings;
     }
 }
