@@ -31,6 +31,10 @@ public class Hand {
          bet *= 2;
     }
 
+    public String getName() {
+        return HOLDER.getName();
+    }
+
     public int getBet() {
         return bet;
     }

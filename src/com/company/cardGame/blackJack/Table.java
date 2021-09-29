@@ -52,8 +52,8 @@ public class Table {
     private void displayTable() {
         StringBuilder output = new StringBuilder();
 
-        output.append("Dealer: ").append(dealer.displayHand()).append("\n");
-        output.append("Player: ").append(player.displayHand()).append("\n");
+        output.append(dealer.getName()).append(dealer.displayHand()).append("\n");
+        output.append(player.getName()).append(player.displayHand()).append("\n");
 
         System.out.println(output);
     }
