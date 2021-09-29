@@ -1,5 +1,6 @@
 package com.company.cardGame.blackJack;
 
+import com.company.Utils.Console;
 import com.company.cardGame.deck.Deck;
 import com.company.cardGame.deck.StandardDeck;
 import com.company.cardGame.actor.Dealer;
@@ -7,14 +8,27 @@ import com.company.cardGame.actor.Player;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 public class Table {
-    private Hand player = new Hand(new Player("Player"));
+//    private Hand player = new Hand(new Player("Player"));
     private Hand dealer = new Hand(new Dealer());
     private Deck deck;
+    private int NUMBER_OF_HANDS;
     private final List<Hand> hands = new ArrayList<>();
     //todo get the multi player system working
     private final int BUST_VALUE = 21;
+
+    public Table() {
+        System.out.println("How many players?");
+        NUMBER_OF_HANDS = Console.getInt(0, 8, "How many players?", "Too many Players...");
+
+        while (hands.size() < NUMBER_OF_HANDS) {
+            String name = Console.getString("Enter a Name: ", true);
+
+            hands.add(new Hand(new Player(name)));
+        }
+    }
 
     public void playRound() {
         deck  = new StandardDeck();
@@ -39,7 +53,7 @@ public class Table {
         }
         turn(dealer);
         determineWinner();
-        System.out.println("Balance: " + player.getBalance());
+//        System.out.println("Balance: " + player.getBalance());
     }
 
     private void deal() {
