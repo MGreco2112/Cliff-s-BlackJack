@@ -42,13 +42,18 @@ public class Table {
         b3. dealers turn
         b4. declare winner
          */
-        player.placeBet();
+        for (Hand player : hands) {
+            player.placeBet();
+        }
+
         deal();
         displayTable();
-        while (turn(player)) {
-            if (player.getValue() > BUST_VALUE) {
-                System.out.println("BUSTED!!!");
-                break;
+        for (Hand player : hands) {
+            while (turn(player)) {
+                if (player.getValue() > BUST_VALUE) {
+                    System.out.println("BUSTED!!!");
+                    break;
+                }
             }
         }
         turn(dealer);
@@ -58,7 +63,9 @@ public class Table {
 
     private void deal() {
         for (int count = 0; count < 2; count++) {
-            player.addCard(deck.draw());
+            for (Hand player : hands) {
+                player.addCard(deck.draw());
+            }
             dealer.addCard(deck.draw());
         }
     }
