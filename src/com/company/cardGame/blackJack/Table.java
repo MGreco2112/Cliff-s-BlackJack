@@ -56,7 +56,7 @@ public class Table {
             }
         }
         turn(dealer);
-//        determineWinner();
+        determineWinner();
 //        System.out.println("Balance: " + player.getBalance());
     }
 
@@ -78,30 +78,40 @@ public class Table {
         System.out.println(output);
     }
 
-//    private void determineWinner() {
-//
-//        if (player.getValue() > BUST_VALUE) {
-//            System.out.println("Dealer wins");
-//            return;
-//        }
-//
-//        System.out.println("Dealer: " + dealer.getValue());
-//        System.out.println("Player: " + player.getValue());
-//
-//        if (player.getValue() > dealer.getValue() || dealer.getValue() > BUST_VALUE) {
-//            System.out.println("Player wins");
-//            player.payout(player.NORMALPAY);
-//            return;
-//        }
-//
-//        if (player.getValue() == dealer.getValue()) {
-//            System.out.println("Push");
-//            player.payout(player.PUSHPAY);
-//            return;
-//        }
-//
-//        System.out.println("Dealer wins");
-//    }
+    private void determineWinner() {
+
+        Hand player = null;
+        int highestScore = 0;
+
+        for (Hand checkedPlayer : hands) {
+            if (checkedPlayer.getBalance() > highestScore && checkedPlayer.getBalance() <= 21) {
+                player = checkedPlayer;
+            }
+        }
+
+
+        if (player == null || player.getValue() > BUST_VALUE) {
+            System.out.println(dealer.getName() + " wins");
+            return;
+        }
+
+        System.out.println(dealer.getName() + " " + dealer.getValue());
+        System.out.println(player.getName() + " " + player.getValue());
+
+        if (player.getValue() > dealer.getValue() || dealer.getValue() > BUST_VALUE) {
+            System.out.println(player.getName() + " wins");
+            player.payout(player.NORMALPAY);
+            return;
+        }
+
+        if (player.getValue() == dealer.getValue()) {
+            System.out.println("Push");
+            player.payout(player.PUSHPAY);
+            return;
+        }
+
+        System.out.println(dealer.getName() + " wins");
+    }
 
     private boolean turn(Hand activeHand) {
 
