@@ -2,6 +2,7 @@ package com.company.cardGame.blackJack;
 
 import com.company.Utils.Console;
 import com.company.cardGame.deck.Deck;
+import com.company.cardGame.deck.RiggedDeck;
 import com.company.cardGame.deck.StandardDeck;
 import com.company.cardGame.actor.Dealer;
 import com.company.cardGame.actor.Player;
@@ -30,8 +31,8 @@ public class Table {
     }
 
     public void playRound() {
-        deck  = new StandardDeck();
-//        deck = new RiggedDeck();
+//        deck  = new StandardDeck();
+        deck = new RiggedDeck();
         deck.shuffle();
         /*
         0. take bets
@@ -165,5 +166,16 @@ public class Table {
     private void split(Hand activeHand) {
         //todo split
         doubleDown(activeHand);
+        // create a new hand with the name of the active hands HOLDER
+        // newHand.placeBet();
+        // deal two cards into it
+        // add new hand into the hands list
+
+//        Hand newHand = new Hand(new Player(activeHand.getName()));
+//        newHand.placeBet();
+//        while (newHand.getCards().size() > 2) {
+//            newHand.addCard(deck.draw());
+//        }
+//        hands.add(newHand);
     }
 }
