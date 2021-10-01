@@ -18,7 +18,7 @@ public class Table {
     private int NUMBER_OF_HANDS;
     private final List<Hand> hands = new ArrayList<>();
     //todo get the multi player system working
-    private final int BUST_VALUE = 21;
+    public static final int BUST_VALUE = 21;
 
     public Table() {
         NUMBER_OF_HANDS = Console.getInt(0, 8, "How many players?", "Too many Players...");
