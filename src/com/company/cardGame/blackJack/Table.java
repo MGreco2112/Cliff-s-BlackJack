@@ -82,11 +82,14 @@ public class Table {
     private void determineWinner() {
 
         Hand player = null;
+        List<Hand> players = new ArrayList<>();
         int highestScore = 0;
 
         for (Hand checkedPlayer : hands) {
-            if (checkedPlayer.getBalance() > highestScore && checkedPlayer.getBalance() <= 21) {
+            if (checkedPlayer.getBalance() > highestScore && checkedPlayer.getBalance() <= BUST_VALUE) {
                 player = checkedPlayer;
+            } else if (checkedPlayer.getBalance() <= BUST_VALUE && checkedPlayer.getBalance() == highestScore) {
+                players.add(checkedPlayer);
             }
             /* else if (checkedPlayer.getBalance() == highestScore) {
                 -Create an array of Hands of the same score
@@ -100,7 +103,7 @@ public class Table {
         }
 
 
-        if (player == null || player.getValue() > BUST_VALUE) {
+        if (player == null && players.size() == 0 || player.getValue() > BUST_VALUE) {
             System.out.println(dealer.getName() + " wins");
             return;
         }
@@ -108,13 +111,13 @@ public class Table {
         System.out.println(dealer.getName() + " " + dealer.getValue());
         System.out.println(player.getName() + " " + player.getValue());
 
-        if (player.getValue() > dealer.getValue() || dealer.getValue() > BUST_VALUE) {
+        if (player.getValue() > dealer.getValue() || players.size() > 0 && players.get(0).getValue() > dealer.getValue() || dealer.getValue() > BUST_VALUE) {
             System.out.println(player.getName() + " wins");
             player.payout(player.NORMALPAY);
             return;
         }
 
-        if (player.getValue() == dealer.getValue()) {
+        if (player.getValue() == dealer.getValue() || players.size() > 0 && players.get(0).getValue() > dealer.getValue()) {
             System.out.println("Push");
             player.payout(player.PUSHPAY);
             return;
