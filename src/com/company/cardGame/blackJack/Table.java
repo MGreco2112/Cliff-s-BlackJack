@@ -86,10 +86,13 @@ public class Table {
         int highestScore = 0;
 
         for (Hand checkedPlayer : hands) {
-            if (checkedPlayer.getBalance() > highestScore && checkedPlayer.getBalance() <= BUST_VALUE) {
+            if (checkedPlayer.getValue() > highestScore && checkedPlayer.getValue() <= BUST_VALUE) {
                 player = checkedPlayer;
-            } else if (checkedPlayer.getBalance() <= BUST_VALUE && checkedPlayer.getBalance() == highestScore) {
+                highestScore = checkedPlayer.getValue();
+            } else if (checkedPlayer.getValue() <= BUST_VALUE && checkedPlayer.getValue() == highestScore) {
+                players.add(player);
                 players.add(checkedPlayer);
+                player = null;
             }
             /* else if (checkedPlayer.getBalance() == highestScore) {
                 -Create an array of Hands of the same score
@@ -112,14 +115,27 @@ public class Table {
         System.out.println(player.getName() + " " + player.getValue());
 
         if (player.getValue() > dealer.getValue() || players.size() > 0 && players.get(0).getValue() > dealer.getValue() || dealer.getValue() > BUST_VALUE) {
-            System.out.println(player.getName() + " wins");
-            player.payout(player.NORMALPAY);
+            if (player != null) {
+                System.out.println(player.getName() + " wins");
+                player.payout(player.NORMALPAY);
+            } else {
+                for (Hand singlePlayer : players) {
+                    System.out.println(singlePlayer.getName() + " wins!");
+                    singlePlayer.payout(player.NORMALPAY);
+                }
+            }
             return;
         }
 
         if (player.getValue() == dealer.getValue() || players.size() > 0 && players.get(0).getValue() > dealer.getValue()) {
             System.out.println("Push");
-            player.payout(player.PUSHPAY);
+            if (player != null) {
+                player.payout(player.PUSHPAY);
+            } else {
+                for (Hand singlePlayer : players) {
+                    singlePlayer.payout(player.PUSHPAY);
+                }
+            }
             return;
         }
 
