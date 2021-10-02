@@ -89,6 +89,9 @@ public class Table {
             if (checkedPlayer.getValue() > highestScore && checkedPlayer.getValue() <= BUST_VALUE) {
                 player = checkedPlayer;
                 highestScore = checkedPlayer.getValue();
+                if (players.size() != 0) {
+                    players.clear();
+                }
             } else if (checkedPlayer.getValue() <= BUST_VALUE && checkedPlayer.getValue() == highestScore) {
                 players.add(player);
                 players.add(checkedPlayer);
