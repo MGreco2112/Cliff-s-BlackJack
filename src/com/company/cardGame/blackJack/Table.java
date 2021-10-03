@@ -30,6 +30,12 @@ public class Table {
         }
     }
 
+    public void playGame() {
+        while (true) {
+            playRound();
+        }
+    }
+
     public void playRound() {
         deck  = new StandardDeck();
 //        deck = new RiggedDeck();
@@ -52,6 +58,7 @@ public class Table {
         turn(dealer);
         determineWinner();
         displayBalances();
+        clearHands();
     }
 
     private void playerTurns() {
@@ -215,5 +222,28 @@ public class Table {
         newHand.addCard(deck.draw());
         hands.add(newHand);
 
+    }
+
+    private void clearHands() {
+        for (Hand player : hands) {
+            player.clearHands();
+        }
+
+        dealer.clearHands();
+
+        if (hands.size() > NUMBER_OF_HANDS) {
+            String name;
+
+            for (int i = 0; i < hands.size(); i++) {
+                name = hands.get(i).getName();
+
+                for (int j = i + 1; j < hands.size(); j++) {
+                    if (name.equals(hands.get(j).getName())) {
+                        hands.remove(hands.get(j));
+                        j--;
+                    }
+                }
+            }
+        }
     }
 }

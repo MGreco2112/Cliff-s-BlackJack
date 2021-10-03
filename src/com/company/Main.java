@@ -52,6 +52,6 @@ public class Main {
 //        System.out.println("Done");
 
         Table table = new Table();
-        table.playRound();
+        table.playGame();
     }
 }

@@ -66,6 +66,10 @@ public class Hand {
         return newHand;
     }
 
+    public void clearHands() {
+        cards.clear();
+    }
+
 //    public boolean hasPair() {
 //
 //        for (int i = 0; i < cards.size(); i++) {
