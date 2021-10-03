@@ -47,17 +47,29 @@ public class Table {
         }
 
         deal();
+        displayTable();
+        playerTurns();
+        turn(dealer);
+        determineWinner();
+        displayBalances();
+    }
+
+    private void playerTurns() {
         for (Hand player : hands) {
-            displayTable();
             while (turn(player)) {
                 if (player.getValue() > BUST_VALUE) {
                     System.out.println("BUSTED!!!");
                     break;
                 }
             }
+            Console.getString("Press Enter to Continue", false);
         }
-        turn(dealer);
-        determineWinner();
+    }
+
+    private void displayBalances() {
+        for (Hand player : hands) {
+            System.out.println(player.getName() + "'s Balance: $" + player.getBalance());
+        }
 //        System.out.println("Balance: " + player.getBalance());
     }
 
