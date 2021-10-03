@@ -53,6 +53,19 @@ public class Hand {
 
     }
 
+    public Card removeCard(int index) {
+        return cards.remove(index);
+    }
+
+    public Hand splitHand() {
+        bet = bet/2;
+        Hand newHand = new Hand(HOLDER);
+        newHand.addCard(cards.remove(0));
+        newHand.bet = bet;
+
+        return newHand;
+    }
+
 //    public boolean hasPair() {
 //
 //        for (int i = 0; i < cards.size(); i++) {

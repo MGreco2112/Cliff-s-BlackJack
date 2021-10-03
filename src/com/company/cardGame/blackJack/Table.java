@@ -55,9 +55,9 @@ public class Table {
     }
 
     private void playerTurns() {
-        for (Hand player : hands) {
-            while (turn(player)) {
-                if (player.getValue() > BUST_VALUE) {
+        for (int i = 0; i < hands.size(); i++) {
+            while (turn(hands.get(i))) {
+                if (hands.get(i).getValue() > BUST_VALUE) {
                     System.out.println("BUSTED!!!");
                     break;
                 }
@@ -165,6 +165,7 @@ public class Table {
     private boolean turn(Hand activeHand) {
 
         System.out.println("Dealer: " + dealer.displayHand());
+        System.out.println(activeHand.getName());
         byte action = activeHand.getAction();
         switch (action) {
             case Actor.QUIT -> stand(activeHand);
@@ -180,7 +181,7 @@ public class Table {
 
 
 
-        if (action == Actor.QUIT || action == Actor.STAND) {
+        if (action == Actor.QUIT || action == Actor.STAND || action == Actor.SPLIT) {
             return false;
         }
 
@@ -213,17 +214,12 @@ public class Table {
 
     private void split(Hand activeHand) {
         //todo split
-        doubleDown(activeHand);
-        // create a new hand with the name of the active hands HOLDER
-        // newHand.placeBet();
-        // deal two cards into it
-        // add new hand into the hands list
+//        doubleDown(activeHand);
+        activeHand.doubleBet();
+        Hand newHand = activeHand.splitHand();
+        activeHand.addCard(deck.draw());
+        newHand.addCard(deck.draw());
+        hands.add(newHand);
 
-//        Hand newHand = new Hand(new Player(activeHand.getName()));
-//        newHand.placeBet();
-//        while (newHand.getCards().size() > 2) {
-//            newHand.addCard(deck.draw());
-//        }
-//        hands.add(newHand);
     }
 }
