@@ -181,7 +181,7 @@ public class Table {
 
 
 
-        if (action == Actor.QUIT || action == Actor.STAND || action == Actor.SPLIT) {
+        if (action == Actor.QUIT || action == Actor.STAND) {
             return false;
         }
 
