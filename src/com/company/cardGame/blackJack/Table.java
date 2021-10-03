@@ -231,19 +231,9 @@ public class Table {
 
         dealer.clearHands();
 
-        if (hands.size() > NUMBER_OF_HANDS) {
-            String name;
-
-            for (int i = 0; i < hands.size(); i++) {
-                name = hands.get(i).getName();
-
-                for (int j = i + 1; j < hands.size(); j++) {
-                    if (name.equals(hands.get(j).getName())) {
-                        hands.remove(hands.get(j));
-                        j--;
-                    }
-                }
-            }
+        while (hands.size() > NUMBER_OF_HANDS) {
+            hands.remove(hands.size() - 1);
         }
+
     }
 }
