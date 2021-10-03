@@ -168,7 +168,7 @@ public class Table {
         System.out.println(activeHand.getName());
         byte action = activeHand.getAction();
         switch (action) {
-            case Actor.QUIT -> stand(activeHand);
+            case Actor.QUIT -> System.exit(0);
             case Actor.HIT -> hit(activeHand);
             case Actor.STAND -> stand(activeHand);
             case Actor.DOUBLE -> doubleDown(activeHand);
@@ -180,13 +180,7 @@ public class Table {
         }
 
 
-
-        if (action == Actor.QUIT || action == Actor.STAND) {
-            return false;
-        }
-
-        return true;
-
+        return action != Actor.STAND;
 
 
     }
