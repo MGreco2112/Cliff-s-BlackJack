@@ -48,7 +48,7 @@ public class Table {
 
         deal();
         for (Hand player : hands) {
-            displayTable(player);
+            displayTable();
             while (turn(player)) {
                 if (player.getValue() > BUST_VALUE) {
                     System.out.println("BUSTED!!!");
@@ -63,18 +63,20 @@ public class Table {
 
     private void deal() {
         for (int count = 0; count < 2; count++) {
+            dealer.addCard(deck.draw());
             for (Hand player : hands) {
                 player.addCard(deck.draw());
             }
-            dealer.addCard(deck.draw());
         }
     }
 
-    private void displayTable(Hand player) {
+    private void displayTable() {
         StringBuilder output = new StringBuilder();
 
         output.append(dealer.getName()).append(" ").append(dealer.displayHand()).append("\n");
-        output.append(player.getName()).append(" ").append(player.displayHand()).append("\n");
+        for (Hand player : hands) {
+            output.append(player.getName()).append(" ").append(player.displayHand()).append(" | ");
+        }
 
         System.out.println(output);
     }
