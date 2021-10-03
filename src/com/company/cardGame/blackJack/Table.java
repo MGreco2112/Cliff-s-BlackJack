@@ -31,8 +31,8 @@ public class Table {
     }
 
     public void playRound() {
-//        deck  = new StandardDeck();
-        deck = new RiggedDeck();
+        deck  = new StandardDeck();
+//        deck = new RiggedDeck();
         deck.shuffle();
         /*
         0. take bets
