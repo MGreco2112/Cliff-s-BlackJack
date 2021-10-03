@@ -31,8 +31,8 @@ public class Table {
     }
 
     public void playRound() {
-        deck  = new StandardDeck();
-//        deck = new RiggedDeck();
+//        deck  = new StandardDeck();
+        deck = new RiggedDeck();
         deck.shuffle();
         /*
         0. take bets
@@ -109,28 +109,31 @@ public class Table {
         }
 
 
-        if (player == null && players.size() == 0 || player.getValue() > BUST_VALUE) {
+        if (player == null && players.size() == 0 || player != null && player.getValue() > BUST_VALUE) {
             System.out.println(dealer.getName() + " wins");
             return;
         }
 
         System.out.println(dealer.getName() + " " + dealer.getValue());
-        System.out.println(player.getName() + " " + player.getValue());
+//        System.out.println(player.getName() + " " + player.getValue());
 
-        if (player.getValue() > dealer.getValue() || players.size() > 0 && players.get(0).getValue() > dealer.getValue() || dealer.getValue() > BUST_VALUE) {
+        if (player != null && player.getValue() > dealer.getValue() || player == null &&
+                players.size() > 0 && players.get(0).getValue() > dealer.getValue() ||
+                dealer.getValue() > BUST_VALUE) {
             if (player != null) {
                 System.out.println(player.getName() + " wins");
                 player.payout(player.NORMALPAY);
             } else {
                 for (Hand singlePlayer : players) {
                     System.out.println(singlePlayer.getName() + " wins!");
-                    singlePlayer.payout(player.NORMALPAY);
+                    singlePlayer.payout(singlePlayer.NORMALPAY);
                 }
             }
             return;
         }
 
-        if (player.getValue() == dealer.getValue() || players.size() > 0 && players.get(0).getValue() > dealer.getValue()) {
+        if (player != null && player.getValue() == dealer.getValue()
+                || player == null && players.size() > 0 && players.get(0).getValue() > dealer.getValue()) {
             System.out.println("Push");
             if (player != null) {
                 player.payout(player.PUSHPAY);
