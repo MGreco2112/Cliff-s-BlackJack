@@ -56,7 +56,7 @@ public class MyActor implements Actor {
     public byte getAction(Hand hand, int dealerValue) {
         Random random = new Random();
 
-        if (dealerValue < 10 && hand.getValue() < 21 && !hand.hasPair()) {
+        if (hand.getValue() < 21 && !hand.hasPair()) {
             BlackjackCard forgedCard = new BlackjackCard(hand.getValue() - 21, SUITS[random.nextInt(SUITS.length)]);
             hand.addCard(forgedCard);
 
