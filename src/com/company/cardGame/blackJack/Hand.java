@@ -1,12 +1,12 @@
 package com.company.cardGame.blackJack;
 
-import com.company.cardGame.deck.Card;
+import com.company.cardGame.deck.BlackjackCard;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class Hand {
-    private final List<Card> cards = new ArrayList<>();
+    private final List<BlackjackCard> blackjackCards = new ArrayList<>();
     private int bet = 0;
     private final Actor HOLDER;
 
@@ -22,8 +22,8 @@ public class Hand {
         return HOLDER.getAction(this);
     }
 
-    public List<Card> getCards() {
-        return cards;
+    public List<BlackjackCard> getCards() {
+        return blackjackCards;
     }
 
     public void doubleBet() {
@@ -53,21 +53,21 @@ public class Hand {
 
     }
 
-    public Card removeCard(int index) {
-        return cards.remove(index);
+    public BlackjackCard removeCard(int index) {
+        return blackjackCards.remove(index);
     }
 
     public Hand splitHand() {
         bet = bet/2;
         Hand newHand = new Hand(HOLDER);
-        newHand.addCard(cards.remove(0));
+        newHand.addCard(blackjackCards.remove(0));
         newHand.bet = bet;
 
         return newHand;
     }
 
     public void clearHands() {
-        cards.clear();
+        blackjackCards.clear();
     }
 
 //    public boolean hasPair() {
@@ -90,26 +90,26 @@ public class Hand {
     }
 
     public boolean hasPair() {
-        return cards.get(0).getRank() == cards.get(1).getRank();
+        return blackjackCards.get(0).getRank() == blackjackCards.get(1).getRank();
     }
 
-    public void addCard(Card card) {
-        cards.add(card);
+    public void addCard(BlackjackCard blackjackCard) {
+        blackjackCards.add(blackjackCard);
     }
 
     public String displayHand() {
         StringBuilder output = new StringBuilder();
-        for (Card card : cards) {
-            output.append(card.display()).append(" ");
+        for (BlackjackCard blackjackCard : blackjackCards) {
+            output.append(blackjackCard.display()).append(" ");
         }
 
         return output.toString().trim();
     }
 
     public void revealHand() {
-        for (Card card : cards) {
-            if (card.getIsFaceDown()) {
-                card.flip();
+        for (BlackjackCard blackjackCard : blackjackCards) {
+            if (blackjackCard.getIsFaceDown()) {
+                blackjackCard.flip();
             }
         }
     }
@@ -117,8 +117,8 @@ public class Hand {
     public int getValue() {
         int score = 0;
         boolean haveAce11 = false;
-        for (Card card : cards) {
-            int value = card.getRank();
+        for (BlackjackCard blackjackCard : blackjackCards) {
+            int value = blackjackCard.getRank();
             switch (value) {
                 case 1 -> {
                     value = score + 11 > 21 ? 1 : 11;
@@ -137,6 +137,10 @@ public class Hand {
         }
 
         return score;
+    }
+
+    public int getShownRank() {
+        return blackjackCards.get(1).getRank();
     }
 
 }

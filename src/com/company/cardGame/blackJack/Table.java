@@ -1,16 +1,14 @@
 package com.company.cardGame.blackJack;
 
 import com.company.Utils.Console;
-import com.company.cardGame.deck.Card;
+import com.company.cardGame.deck.BlackjackCard;
 import com.company.cardGame.deck.Deck;
-import com.company.cardGame.deck.RiggedDeck;
 import com.company.cardGame.deck.StandardDeck;
 import com.company.cardGame.actor.Dealer;
 import com.company.cardGame.actor.Player;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 public class Table {
 //    private Hand player = new Hand(new Player("Player"));
@@ -89,9 +87,9 @@ public class Table {
                 if (count == 0) {
                     player.addCard(deck.draw());
                 } else {
-                    Card card = deck.draw();
-                    card.flip();
-                    player.addCard(card);
+                    BlackjackCard blackjackCard = deck.draw();
+                    blackjackCard.flip();
+                    player.addCard(blackjackCard);
                 }
             }
         }
@@ -204,9 +202,9 @@ public class Table {
 
     private void hit(Hand activeHand) {
         //todo hit
-        Card card = deck.draw();
-        card.flip();
-        activeHand.addCard(card);
+        BlackjackCard blackjackCard = deck.draw();
+        blackjackCard.flip();
+        activeHand.addCard(blackjackCard);
 //        System.out.println(activeHand.displayHand());
         System.out.println(activeHand.displayHand() + "\n" + activeHand.getValue());
         System.out.println("HIT!");
@@ -230,12 +228,12 @@ public class Table {
 //        doubleDown(activeHand);
         activeHand.doubleBet();
         Hand newHand = activeHand.splitHand();
-        Card card1 = deck.draw();
-        card1.flip();
-        activeHand.addCard(card1);
-        Card card2 = deck.draw();
-        card2.flip();
-        newHand.addCard(card2);
+        BlackjackCard blackjackCard1 = deck.draw();
+        blackjackCard1.flip();
+        activeHand.addCard(blackjackCard1);
+        BlackjackCard blackjackCard2 = deck.draw();
+        blackjackCard2.flip();
+        newHand.addCard(blackjackCard2);
         hands.add(newHand);
 
     }

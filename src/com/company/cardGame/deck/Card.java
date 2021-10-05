@@ -1,39 +1,26 @@
 package com.company.cardGame.deck;
 
-public class Card {
-    private int rank;
-    private String suit;
-    private boolean isFaceDown = true;
+public abstract class Card {
+    protected int rank;
+    protected String suit;
+    protected boolean isFaceDown = true;
 
     public Card(int rank, String suit) {
         this.rank = rank;
         this.suit = suit;
     }
 
-    public void flip() {
-        isFaceDown = !isFaceDown;
-    }
+    public int getRank() {return rank;}
 
     public boolean getIsFaceDown() {
         return isFaceDown;
     }
 
-    public int getRank() {return rank;}
+    public abstract String display();
 
-    public String display() {
-        if (!isFaceDown) {
-            String output = "";
-            switch (rank) {
-                case 1 -> output = "AC";
-                case 11 -> output = "JA";
-                case 12 -> output = "QU";
-                case 13 -> output = "KI";
-//            case 0 -> output = "JR"; //joker
-                default -> output = rank == 10 ? Integer.toString(rank) : " " + rank;
-            }
-            return output + suit;
-        }
-
-        return "<*>";
+    public void flip() {
+        isFaceDown = !isFaceDown;
     }
+
+
 }
