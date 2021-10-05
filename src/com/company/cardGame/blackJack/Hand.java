@@ -106,6 +106,14 @@ public class Hand {
         return output.toString().trim();
     }
 
+    public void revealHand() {
+        for (Card card : cards) {
+            if (card.getIsFaceDown()) {
+                card.flip();
+            }
+        }
+    }
+
     public int getValue() {
         int score = 0;
         boolean haveAce11 = false;

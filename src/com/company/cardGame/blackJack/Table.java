@@ -1,6 +1,7 @@
 package com.company.cardGame.blackJack;
 
 import com.company.Utils.Console;
+import com.company.cardGame.deck.Card;
 import com.company.cardGame.deck.Deck;
 import com.company.cardGame.deck.RiggedDeck;
 import com.company.cardGame.deck.StandardDeck;
@@ -63,6 +64,7 @@ public class Table {
 
     private void playerTurns() {
         for (int i = 0; i < hands.size(); i++) {
+            hands.get(i).revealHand();
             while (turn(hands.get(i))) {
                 if (hands.get(i).getValue() > BUST_VALUE) {
                     System.out.println("BUSTED!!!");
@@ -84,7 +86,13 @@ public class Table {
         for (int count = 0; count < 2; count++) {
             dealer.addCard(deck.draw());
             for (Hand player : hands) {
-                player.addCard(deck.draw());
+                if (count == 0) {
+                    player.addCard(deck.draw());
+                } else {
+                    Card card = deck.draw();
+                    card.flip();
+                    player.addCard(card);
+                }
             }
         }
     }
@@ -105,6 +113,8 @@ public class Table {
         Hand player = null;
         List<Hand> players = new ArrayList<>();
         int highestScore = 0;
+
+        dealer.revealHand();
 
         for (Hand checkedPlayer : hands) {
             if (checkedPlayer.getValue() > highestScore && checkedPlayer.getValue() <= BUST_VALUE) {
@@ -194,7 +204,9 @@ public class Table {
 
     private void hit(Hand activeHand) {
         //todo hit
-        activeHand.addCard(deck.draw());
+        Card card = deck.draw();
+        card.flip();
+        activeHand.addCard(card);
 //        System.out.println(activeHand.displayHand());
         System.out.println(activeHand.displayHand() + "\n" + activeHand.getValue());
         System.out.println("HIT!");
@@ -218,8 +230,12 @@ public class Table {
 //        doubleDown(activeHand);
         activeHand.doubleBet();
         Hand newHand = activeHand.splitHand();
-        activeHand.addCard(deck.draw());
-        newHand.addCard(deck.draw());
+        Card card1 = deck.draw();
+        card1.flip();
+        activeHand.addCard(card1);
+        Card card2 = deck.draw();
+        card2.flip();
+        newHand.addCard(card2);
         hands.add(newHand);
 
     }
