@@ -23,7 +23,7 @@ public class Dealer implements Actor{
 
 
     @Override
-    public byte getAction(Hand hand) {
+    public byte getAction(Hand hand, int dealerValue) {
 
         return hand.getValue() < 17 ? HIT : STAND;
     }

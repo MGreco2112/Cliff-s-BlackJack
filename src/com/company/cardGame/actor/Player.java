@@ -60,7 +60,7 @@ public class Player implements Actor {
     }
 
     @Override
-    public byte getAction(Hand hand) {
+    public byte getAction(Hand hand, int dealerValue) {
         //display hand and value
         System.out.println(hand.displayHand());
         System.out.println(hand.getValue());

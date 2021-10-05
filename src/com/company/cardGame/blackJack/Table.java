@@ -181,7 +181,7 @@ public class Table {
 
         System.out.println("Dealer: " + dealer.displayHand());
         System.out.println(activeHand.getName());
-        byte action = activeHand.getAction();
+        byte action = activeHand.getAction(dealer.getValue());
         switch (action) {
             case Actor.QUIT -> System.exit(0);
             case Actor.HIT -> hit(activeHand);

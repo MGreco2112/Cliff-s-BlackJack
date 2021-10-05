@@ -18,8 +18,8 @@ public class Hand {
 
     }
 
-    public byte getAction() {
-        return HOLDER.getAction(this);
+    public byte getAction(int dealerValue) {
+        return HOLDER.getAction(this, dealerValue);
     }
 
     public List<BlackjackCard> getCards() {
